@@ -71,5 +71,4 @@
 
     - name: Print uptime
       ansible.builtin.debug: "echo $ENV_VAR" 
-      environment:
-        ENV_VAR: production
+      var: uptime_command_output.stdout_lines
