@@ -60,3 +60,19 @@
       ansible.builtin.command: "echo $ENV_VAR" 
       environment:
         ENV_VAR: production
+
+
+- name: Fourth play
+  hosts: my_hosts             # must match in the inventory
+  environment:
+    ENV_VAR: development
+  tasks:
+    - name: Print dev environment variable
+      ansible.builtin.debug: 
+        # msg: "Environment: {{ ansible_env.ENV_VAR }}"
+        var: ansible_env
+
+    - name: Print production environment variable
+      ansible.builtin.command: "echo $ENV_VAR" 
+      environment:
+        ENV_VAR: production
