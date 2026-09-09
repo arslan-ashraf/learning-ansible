@@ -5,6 +5,10 @@
       ansible.builtin.debug:
         msg: "Testing first message"
 
+    - name: Print managed node facts
+      ansible.builtin.debug:
+        # var: ansible_facts
+
 
 - name: Second play
   hosts: my_hosts             # must match in the inventory
