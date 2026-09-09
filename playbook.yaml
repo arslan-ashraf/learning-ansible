@@ -1,5 +1,7 @@
 - name: My first play
   hosts: my_hosts             # must match in the inventory
+  vars:
+    fruit: "blueberries"
   tasks:
     - name: Ping my hosts
       ansible.builtin.ping:
@@ -8,6 +10,6 @@
       ansible.builtin.debug:
         msg: "Testing first message"
 
-    - name: Print message
+    - name: Print variable
       ansible.builtin.debug:
-        msg: "Testing first message"
+        var: fruit
