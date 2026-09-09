@@ -8,6 +8,14 @@
     - name: Print managed node facts
       ansible.builtin.debug:
         # var: ansible_facts
+        # var: ansible_facts["distribution"]
+        msg: {
+          "dns": "{{ ansible_facts['dns'] }}",
+          "os_name": "{{ ansible_facts['distribution'] }}",
+          "os_version": "{{ ansible_facts['distribution_version'] }}",
+          "python_version": "{{ ansible_facts['python_version'] }}",
+          "selinux": "{{ ansible_facts['selinux'] }}",
+        }
 
 
 - name: Second play
@@ -44,9 +52,11 @@
     ENV_VAR: developement
   tasks:
     - name: Print dev environment variable
-      ansible.builtin.command: "echo $ENV_VAR"
+      ansible.builtin.debug: 
+        msg: "Environment: {{ ansible_env.ENV_VAR }}"
 
     - name: Print production environment variable
-      ansible.builtin.command: "echo $ENV_VAR"
+      ansible.builtin.debug: 
+        msg: "Environment: {{ ansible_env.ENV_VAR }}"
       environment:
         ENV_VAR: production
