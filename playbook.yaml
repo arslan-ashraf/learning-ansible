@@ -49,14 +49,14 @@
   hosts: my_hosts             # must match in the inventory
   # gather_facts: false
   environment:
-    ENV_VAR: developement
+    ENV_VAR: development
   tasks:
     - name: Print dev environment variable
       ansible.builtin.debug: 
-        msg: "Environment: {{ ansible_env.ENV_VAR }}"
+        # msg: "Environment: {{ ansible_env.ENV_VAR }}"
+        var: ansible_env
 
     - name: Print production environment variable
-      ansible.builtin.debug: 
-        msg: "Environment: {{ ansible_env.ENV_VAR }}"
+      ansible.builtin.command: "echo $ENV_VAR" 
       environment:
         ENV_VAR: production
