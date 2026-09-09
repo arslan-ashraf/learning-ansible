@@ -70,5 +70,5 @@
       register: uptime_command_output
 
     - name: Print uptime
-      ansible.builtin.debug: "echo $ENV_VAR" 
-      var: uptime_command_output.stdout_lines
+      ansible.builtin.debug:
+        var: uptime_command_output.stdout_lines
