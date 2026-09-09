@@ -64,15 +64,12 @@
 
 - name: Fourth play
   hosts: my_hosts             # must match in the inventory
-  environment:
-    ENV_VAR: development
   tasks:
-    - name: Print dev environment variable
-      ansible.builtin.debug: 
-        # msg: "Environment: {{ ansible_env.ENV_VAR }}"
-        var: ansible_env
+    - name: Check uptime
+      ansible.builtin.command: uptime
+      register: uptime_command_output
 
-    - name: Print production environment variable
-      ansible.builtin.command: "echo $ENV_VAR" 
+    - name: Print uptime
+      ansible.builtin.debug: "echo $ENV_VAR" 
       environment:
         ENV_VAR: production
