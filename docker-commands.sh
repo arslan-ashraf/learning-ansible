@@ -1,12 +1,38 @@
 #!/usr/bin/bash
 
+
 docker build -t my-ansible-core .
 
-# prints ansible version
-docker run --rm -it -v $(pwd):/ansible my-ansible-core ansible-playbook -i inventory.yaml playbook.yaml
 
+# runs the playbook
+docker run --rm -it \
+  -v $(pwd):/ansible \
+  my-ansible-core \
+  ansible-playbook -i inventory.yaml playbook.yaml
+
+
+# run playbook with different variables, variable doesn't even
+# need to be defined in the playbook, it can be simply used but
+# then must be passed in the command
+docker run --rm -it \
+  -v $(pwd):/ansible \
+  my-ansible-core \
+  ansible-playbook \
+  --extra-vars="{fruit: orange, vegetable: spinach}" \
+  -i inventory.yaml playbook.yaml
+
+
+# increases verbosity of prints, -v is the default
+docker run --rm -it \
+  -v $(pwd):/ansible \
+  my-ansible-core \
+  ansible-playbook -vv -i inventory.yaml playbook.yaml
+
+
+
+# running with SSH
 docker run --rm -it \
   -v $(pwd):/ansible \
   -v ~/.ssh:/root/.ssh:ro \
   my-ansible-core \
-  ansible-playbook -i inventory.yml playbook.yml
+  ansible-playbook -i inventory.yaml playbook.yaml

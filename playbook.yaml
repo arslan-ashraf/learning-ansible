@@ -1,8 +1,18 @@
-- name: My first play
+- name: First play
+  hosts: my_hosts             # must match in the inventory
+  tasks:
+    - name: Print message
+      ansible.builtin.debug:
+        msg: "Testing first message"
+
+
+- name: Second play
   hosts: my_hosts             # must match in the inventory
   vars:
     fruit: "blueberries"
-  tasks:
+    vegetable: "sweet potatoes"
+    pause_in_seconds: 0
+  tasks:                      # tasks are executed in order
     - name: Ping my hosts
       ansible.builtin.ping:
 
@@ -10,6 +20,29 @@
       ansible.builtin.debug:
         msg: "Testing first message"
 
-    - name: Print variable
+    - name: Print fruit variable
       ansible.builtin.debug:
         var: fruit
+
+    - name: Pause for {{ pause_in_seconds | int }} seconds
+      ansible.builtin.pause:
+        seconds: "{{ pause_in_seconds | int }}"
+
+    - name: Print vegetable variable
+      ansible.builtin.debug:
+        msg: "favorite vegetable: {{ vegetable }}"
+
+
+- name: Third play
+  hosts: my_hosts             # must match in the inventory
+  # gather_facts: false
+  environment:
+    ENV_VAR: developement
+  tasks:
+    - name: Print dev environment variable
+      ansible.builtin.command: "echo $ENV_VAR"
+
+    - name: Print production environment variable
+      ansible.builtin.command: "echo $ENV_VAR"
+      environment:
+        ENV_VAR: production
