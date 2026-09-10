@@ -35,6 +35,7 @@
     - name: Print fruit variable
       ansible.builtin.debug:
         var: fruit
+      tags: fruit_tag
 
     - name: Pause for {{ pause_in_seconds | int }} seconds
       ansible.builtin.pause:
@@ -43,6 +44,7 @@
     - name: Print vegetable variable
       ansible.builtin.debug:
         msg: "favorite vegetable: {{ vegetable }}"
+      tags: vegetable_tag
 
 
 - name: Third play
@@ -65,10 +67,10 @@
 - name: Fourth play
   hosts: my_hosts             # must match in the inventory
   tasks:
-    - name: Check uptime
-      ansible.builtin.command: uptime
-      register: uptime_command_output
+    - name: Check whoami
+      ansible.builtin.command: whoami
+      register: whoami_command_output
 
-    - name: Print uptime
+    - name: Print whoami
       ansible.builtin.debug:
-        var: uptime_command_output.stdout_lines
+        var: whoami_command_output.stdout_lines
