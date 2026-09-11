@@ -5,6 +5,17 @@
       ansible.builtin.debug:
         msg: "Testing first message"
 
+    - name: Print builtin variables
+      ansible.builtin.debug:
+        msg: {
+          "playbook_dir": "{{ playbook_dir }}",
+          "inventory_dir": "{{ inventory_dir }}",
+          "inventory_file": "{{ inventory_file }}",
+          "inventory_hostname": "{{ inventory_hostname }}",
+          "ansible_check_mode": "{{ ansible_check_mode }}",
+          "ansible_diff_mode": "{{ ansible_diff_mode }}"
+        }
+
     - name: Print managed node facts
       ansible.builtin.debug:
         # var: ansible_facts
