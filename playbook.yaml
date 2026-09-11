@@ -1,5 +1,5 @@
 - name: First play
-  hosts: my_hosts             # must match in the inventory
+  hosts: target_hosts             # must match in the inventory
   tasks:
     - name: Print message
       ansible.builtin.debug:
@@ -31,7 +31,7 @@
 
 
 - name: Second play
-  hosts: my_hosts             # must match in the inventory
+  hosts: target_hosts             # must match in the inventory
   vars:
     fruit: "blueberries"
     vegetable: "sweet potatoes"
@@ -60,7 +60,7 @@
 
 
 - name: Third play
-  hosts: my_hosts             # must match in the inventory
+  hosts: target_hosts             # must match in the inventory
   # gather_facts: false       # default is true
   environment:
     ENV_VAR: development
@@ -77,7 +77,7 @@
 
 
 - name: Fourth play
-  hosts: my_hosts             # must match in the inventory
+  hosts: target_hosts             # must match in the inventory
   tasks:
     - name: Check whoami
       ansible.builtin.command: whoami
@@ -94,3 +94,10 @@
     - name: Print time ISO8601
       ansible.builtin.debug:
         var: ansible_date_time.iso8601   # prints like Y-M-D-H-M-S
+
+
+- name: Fifth play
+  hosts: target_hosts
+  tasks:
+    - name: Execute script via python3 command
+      ansible.builtin.command: python3 /path/to/remote_script.py arg1 arg2
