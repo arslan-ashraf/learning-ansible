@@ -8,12 +8,13 @@
     - name: Print builtin variables
       ansible.builtin.debug:
         msg: {
-          "playbook_dir": "{{ playbook_dir }}",
+          "ansible_check_mode": "{{ ansible_check_mode }}",
+          "ansible_diff_mode": "{{ ansible_diff_mode }}",
+          "ansible_version": "{{ ansible_version }}",
           "inventory_dir": "{{ inventory_dir }}",
           "inventory_file": "{{ inventory_file }}",
           "inventory_hostname": "{{ inventory_hostname }}",
-          "ansible_check_mode": "{{ ansible_check_mode }}",
-          "ansible_diff_mode": "{{ ansible_diff_mode }}"
+          "playbook_dir": "{{ playbook_dir }}"
         }
 
     - name: Print managed node facts
