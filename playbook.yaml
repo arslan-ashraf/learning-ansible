@@ -99,5 +99,5 @@
 - name: Fifth play
   hosts: target_hosts
   tasks:
-    - name: Execute script via python3 command
-      ansible.builtin.command: python3 /path/to/remote_script.py arg1 arg2
+    - name: Execute Python script
+      ansible.builtin.command: python3 example.py
