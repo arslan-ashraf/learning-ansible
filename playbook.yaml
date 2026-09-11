@@ -59,7 +59,7 @@
         var: ansible_env
 
     - name: Print production environment variable
-      ansible.builtin.command: "echo $ENV_VAR" 
+      ansible.builtin.command: "echo $ENV_VAR" # use flag -vv to see print
       environment:
         ENV_VAR: production
 
