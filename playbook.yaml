@@ -49,7 +49,7 @@
 
 - name: Third play
   hosts: my_hosts             # must match in the inventory
-  # gather_facts: false
+  # gather_facts: false       # default is true
   environment:
     ENV_VAR: development
   tasks:
@@ -74,3 +74,11 @@
     - name: Print whoami
       ansible.builtin.debug:
         var: whoami_command_output.stdout_lines
+
+    - name: Print detailed time information
+      ansible.builtin.debug:
+        var: ansible_date_time
+
+    - name: Print time ISO8601
+      ansible.builtin.debug:
+        var: ansible_date_time.iso8601   # prints like Y-M-D-H-M-S
