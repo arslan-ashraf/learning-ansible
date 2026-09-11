@@ -104,3 +104,10 @@
         executable: python3 
         cmd: example.py
       register: python_script_raw_output
+
+    - name: Print raw output of Python script
+      ansible.builtin.debug:
+        var: python_script_raw_output
+        verbosity: 2  # only takes effect with -vv flag
+
+    
