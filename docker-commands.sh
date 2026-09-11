@@ -29,6 +29,15 @@ docker run --rm -it \
   ansible-playbook -vv -i inventory.yaml playbook.yaml
 
 
+# run only tasks with the given tags, --tag flag can also take
+# keywords such as tagged, untagged, or multiple --tag flags
+docker run --rm -it \
+  -v $(pwd):/ansible \
+  my-ansible-core \
+  ansible-playbook \
+  --tag fruit_tag \
+  -i inventory.yaml playbook.yaml
+
 
 # running with SSH
 docker run --rm -it \
