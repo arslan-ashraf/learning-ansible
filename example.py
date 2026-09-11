@@ -4,4 +4,4 @@ import json
 
 example_dict = { "fruit": "blueberry", "vegetable": "sweet potato" }
 
-print("this is coming from the python script")
+print(json.dumps(example_dict))

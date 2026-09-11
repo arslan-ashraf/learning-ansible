@@ -100,4 +100,7 @@
   hosts: target_hosts
   tasks:
     - name: Execute Python script
-      ansible.builtin.command: python3 example.py
+      ansible.builtin.script: 
+        executable: python3 
+        cmd: example.py
+      register: python_script_raw_output
