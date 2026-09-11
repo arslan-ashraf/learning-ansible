@@ -110,4 +110,10 @@
         var: python_script_raw_output
         verbosity: 2  # only takes effect with -vv flag
 
-    
+    - name: Convert output of Python script to JSON
+      ansible.builtin.set_facts:
+        favorite_produce: "{{ python_script_raw_output.stdout | from_json }}"
+
+    - name: Print JSON
+      ansible.builtin.debug:
+        var: favorite_produce
