@@ -11,6 +11,8 @@ RUN pip install --no-cache-dir ansible-core
 
 WORKDIR /ansible
 
-COPY ansible.cfg /ansible  # insufficient
+COPY ansible.cfg /ansible  # insufficient, need ENV
+
+ENV ANSIBLE_CONFIG=/ansible/ansible.cfg
 
 CMD ["ansible", "--version"]
