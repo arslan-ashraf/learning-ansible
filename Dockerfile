@@ -11,4 +11,6 @@ RUN pip install --no-cache-dir ansible-core
 
 WORKDIR /ansible
 
+COPY ansible.cfg /ansible  # insufficient
+
 CMD ["ansible", "--version"]
