@@ -11,8 +11,13 @@ RUN pip install --no-cache-dir ansible-core
 
 WORKDIR /ansible
 
-COPY ansible.cfg /ansible  # insufficient, need ENV
+# /ansible directory has full permissions so, ansible ignores the ansible.cfg file
+COPY ansible.cfg /ansible  # insufficient, need ENV or permission change
 
-ENV ANSIBLE_CONFIG=/ansible/ansible.cfg
+# bypasses the permissions check
+# ENV ANSIBLE_CONFIG=/ansible/ansible.cfg
+
+# or change permissions so only the owner can write to it
+RUN chmod 755 /ansible && chmod 644 /ansible/ansible.cfg
 
 CMD ["ansible", "--version"]
