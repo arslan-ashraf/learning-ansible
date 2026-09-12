@@ -16,9 +16,9 @@ WORKDIR /ansible
 COPY ansible.cfg /ansible
 
 # bypasses the permissions check
-# ENV ANSIBLE_CONFIG=/ansible/ansible.cfg
+ENV ANSIBLE_CONFIG=/ansible/ansible.cfg
 
 # or change permissions so only the owner can write to it
-RUN chmod 755 /ansible && chmod 644 /ansible/ansible.cfg
+# RUN chmod 755 /ansible && chmod 644 /ansible/ansible.cfg
 
 CMD ["ansible", "--version"]
