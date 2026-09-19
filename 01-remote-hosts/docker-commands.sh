@@ -44,11 +44,3 @@ docker run --rm -it \
   ansible-playbook \
   --tag fruit_tag \
   -i inventory.yaml playbook.yaml
-
-
-# running with SSH
-docker run --rm -it \
-  -v $(pwd):/ansible \
-  -v ~/.ssh:/root/.ssh:ro \
-  my-ansible-core \
-  ansible-playbook -i inventory.yaml playbook.yaml
