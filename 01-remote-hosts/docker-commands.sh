@@ -7,8 +7,15 @@ docker build -t my-ansible-core .
 # runs the playbook
 docker run --rm -it \
   -v $(pwd):/ansible \
+  -v "..\..\..\.ssh\key-for-ec2-connection:/keys/key-for-ec2-connection:ro" \
   my-ansible-core \
-  ansible-playbook -i inventory.yaml playbook.yaml
+  ansible ec2-servers -m ping
+
+docker run --rm \
+  -v $(pwd):/ansible \
+  -v "//c/Users/yourname/.ssh/key-for-ec2-connection:/keys/key-for-ec2-connection:ro" \
+  my-ansible-core \
+  ansible ec2-servers -m ping
 
 
 # run playbook with different variables, variable doesn't even

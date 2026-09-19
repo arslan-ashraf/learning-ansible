@@ -14,7 +14,7 @@ WORKDIR /ansible
 # /ansible directory has full permissions so, ansible ignores the ansible.cfg file
 # insufficient, need ENV or permission change
 COPY ansible.cfg /ansible
-COPY hosts /ansible
+COPY managed_servers /ansible
 
 # bypasses the permissions check
 ENV ANSIBLE_CONFIG=/ansible/ansible.cfg
