@@ -1,0 +1,5 @@
+backend_servers:
+  hosts:
+    <server_IP_address>:
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: key-for-ec2-connection
