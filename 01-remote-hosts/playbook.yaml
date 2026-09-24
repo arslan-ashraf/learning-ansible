@@ -1,9 +1,8 @@
-- name: First play
-  hosts: target_hosts             # must match in the inventory
+- name: First cloud play
+  hosts: backend_servers             # must match in the inventory
   tasks:
-    - name: Print message
-      ansible.builtin.debug:
-        msg: "Testing first message"
+    - name: Ping server
+      ansible.builtin.ping:
 
     - name: Print builtin variables
       ansible.builtin.debug:
@@ -17,103 +16,30 @@
           "playbook_dir": "{{ playbook_dir }}"
         }
 
-    - name: Print managed node facts
-      ansible.builtin.debug:
-        # var: ansible_facts
-        # var: ansible_facts["distribution"]
-        msg: {
-          "dns": "{{ ansible_facts['dns'] }}",
-          "os_name": "{{ ansible_facts['distribution'] }}",
-          "os_version": "{{ ansible_facts['distribution_version'] }}",
-          "python_version": "{{ ansible_facts['python_version'] }}",
-          "selinux": "{{ ansible_facts['selinux'] }}",
-        }
-
-
-- name: Second play
-  hosts: target_hosts             # must match in the inventory
-  vars:
-    fruit: "blueberries"
-    vegetable: "sweet potatoes"
-    pause_in_seconds: 0
-  tasks:                      # tasks are executed in order
-    - name: Ping my hosts
-      ansible.builtin.ping:
-
-    - name: Print message
-      ansible.builtin.debug:
-        msg: "Testing first message"
-
-    - name: Print fruit variable
-      ansible.builtin.debug:
-        var: fruit
-      tags: fruit_tag
-
-    - name: Pause for {{ pause_in_seconds | int }} seconds
-      ansible.builtin.pause:
-        seconds: "{{ pause_in_seconds | int }}"
-
-    - name: Print vegetable variable
-      ansible.builtin.debug:
-        msg: "favorite vegetable: {{ vegetable }}"
-      tags: vegetable_tag
-
-
-- name: Third play
-  hosts: target_hosts             # must match in the inventory
-  # gather_facts: false       # default is true
-  environment:
-    ENV_VAR: development
+- name: Create facts.d directory and copy custom facts file
+  hosts: backend_servers             # must match in the inventory
+  become: true
   tasks:
-    - name: Print dev environment variable
-      ansible.builtin.debug: 
-        # msg: "Environment: {{ ansible_env.ENV_VAR }}"
-        var: ansible_env
+    - name: Create facts.d directory
+      ansible.builtin.file:
+        path: /etc/ansible/facts.d
+        state: directory          # ensure this is a directory
+        mode: '0755'              # sets directory permissions
+        owner: ubuntu             # optional: sets directory owner
+        group: ubuntu             # optional: sets directory group
 
-    - name: Print production environment variable
-      ansible.builtin.command: "echo $ENV_VAR" # use flag -vv to see print
-      environment:
-        ENV_VAR: production
+    - name: Copying custom facts file
+      ansible.builtin.copy:
+        src: custom_facts.fact
+        dest: /etc/ansible/facts.d
+        mode: '0755'               # set file permissions
+        owner: ubuntu              # optional: sets file owner
+        group: ubuntu              # optional: sets file group
 
-
-- name: Fourth play
-  hosts: target_hosts             # must match in the inventory
+- name: Use custom_facts.fact file to get custom facts
+  hosts: backend_servers             # must match in the inventory
   tasks:
-    - name: Check whoami
-      ansible.builtin.command: whoami
-      register: whoami_command_output
-
-    - name: Print whoami
-      ansible.builtin.debug:
-        var: whoami_command_output.stdout_lines
-
-    - name: Print detailed time information
-      ansible.builtin.debug:
-        var: ansible_date_time
-
-    - name: Print time ISO8601
-      ansible.builtin.debug:
-        var: ansible_date_time.iso8601   # prints like Y-M-D-H-M-S
-
-
-- name: Fifth play
-  hosts: target_hosts
-  tasks:
-    - name: Execute Python script
-      ansible.builtin.script: 
-        executable: python3 
-        cmd: example.py
-      register: python_script_raw_output
-
-    - name: Print raw output of Python script
-      ansible.builtin.debug:
-        var: python_script_raw_output
-        verbosity: 2  # only takes effect with -vv flag
-
-    - name: Convert output of Python script to JSON
-      ansible.builtin.set_fact:
-        favorite_produce: "{{ python_script_raw_output.stdout | from_json }}"
-
-    - name: Print JSON
-      ansible.builtin.debug:
-        var: favorite_produce
+    - name: Get custom facts
+      ansible.builtin.setup:
+        filter:
+          - 'ansible_local*'
