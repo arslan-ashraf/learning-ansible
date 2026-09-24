@@ -1,0 +1,9 @@
+#!/bin/bash
+
+linux_kernel_version=$(uname -r)
+
+cat << 'EOF_LINUX_KERNEL_VERSION'
+{
+    "LINUX_KERNEL_VERSION": "$linux_kernel_version"
+}
+EOF_LINUX_KERNEL_VERSION
