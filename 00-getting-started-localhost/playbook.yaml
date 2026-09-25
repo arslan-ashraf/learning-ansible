@@ -61,7 +61,7 @@
 
 - name: Third play
   hosts: target_hosts             # must match in the inventory
-  # gather_facts: false       # default is true
+  # gather_facts: false           # default is true
   environment:
     ENV_VAR: development
   tasks:
