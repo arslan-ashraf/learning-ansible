@@ -155,6 +155,16 @@
         msg: "{{ item.path }}"
       loop: "{{ found_files.files | default([]) }}"
 
+    - name: Print the entire array
+      ansible.builtin.debug:
+        var: my_array
+      vars:
+        my_array:
+          - apple
+          - banana
+          - orange
+
+
     # - name: Print elements of a loop
     #   ansible.builtin.debug: 
     #     var: "{{ item }}"
