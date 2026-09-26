@@ -30,6 +30,25 @@
         }
 
 
+- name: Gather custom facts
+  hosts: target_hosts
+  gather_facts: false
+  tasks:
+    - name: Enable facts collection from managed hosts
+      ansible.builtin.setup:
+
+    - name: Display operating system
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts['distribution'] }}"
+
+    # use case: installing OS distro specific software
+    # - name: Install nginx on Debian-based systems
+    #   ansible.builtin.apt:
+    #     name: nginx
+    #     state: present
+    #   when: ansible_facts['os_family'] == 'Debian'
+
+
 - name: Print Debug Messages and Variables
   hosts: target_hosts             # must match in the inventory
   vars:
@@ -63,7 +82,7 @@
   hosts: target_hosts             # must match in the inventory
   gather_facts: true
   gather_subset:
-    - network
+    - network                     # only gather network facts
   tags: ["play_level_tag"]
   environment:
     ENV_VAR: development
