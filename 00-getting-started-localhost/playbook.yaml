@@ -1,4 +1,4 @@
-- name: First play
+- name: Play - Get Facts
   hosts: target_hosts             # must match in the inventory
   tasks:
     - name: Print message
@@ -30,7 +30,7 @@
         }
 
 
-- name: Second play
+- name: Play - Print Debug Messages and Variables
   hosts: target_hosts             # must match in the inventory
   vars:
     fruit: "blueberries"
@@ -59,7 +59,7 @@
       tags: vegetable_tag
 
 
-- name: Third play
+- name: Play - Environment Varialbes
   hosts: target_hosts             # must match in the inventory
   # gather_facts: false           # default is true
   environment:
