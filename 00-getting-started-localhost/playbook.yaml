@@ -96,7 +96,7 @@
         var: ansible_date_time.iso8601   # prints like Y-M-D-H-M-S
 
 
-- name: Play - Execute Python Scripte
+- name: Play - Execute Python Script & Run Handlers
   hosts: target_hosts
   tasks:
     - name: Execute Python script
@@ -117,3 +117,11 @@
     - name: Print JSON
       ansible.builtin.debug:
         var: favorite_produce
+
+
+  handlers:
+    - name: Execute Python script
+      ansible.builtin.script: 
+        executable: python3 
+        cmd: example.py
+      register: python_script_raw_output
