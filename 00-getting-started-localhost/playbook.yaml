@@ -124,9 +124,9 @@
       ansible.builtin.debug:
         var: favorite_produce
 
-    - name: Print Python script Return Code
+    - name: Python script execution Return (Status) Code
       ansible.builtin.debug:
-        var: python_script_raw_output.rc
+        var: python_script_raw_output.rc # 0 is succes code
 
 
   handlers:
