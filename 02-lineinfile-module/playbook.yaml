@@ -1,6 +1,9 @@
 - name: Get Facts
   hosts: target_hosts             # must match in the inventory
   tasks:
-    - name: Print message
+    - name: Add a line if it doesn't exist
       ansible.builtin.lineinfile:
-        
+        path: sample.conf
+        line: 'timeout 60'
+        insertafter: '^port'
+        state: present
