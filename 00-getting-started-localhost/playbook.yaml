@@ -129,9 +129,9 @@
         var: python_script_raw_output.rc
 
 
-  # handlers:
-  #   - name: Execute Python script
-  #     ansible.builtin.script: 
-  #       executable: python3 
-  #       cmd: example.py
-  #     register: python_script_raw_output
+  handlers:
+    - name: Execute Python script
+      ansible.builtin.script: 
+        executable: python3 
+        cmd: example.py
+      register: python_script_raw_output
