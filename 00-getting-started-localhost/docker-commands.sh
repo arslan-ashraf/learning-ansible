@@ -11,6 +11,14 @@ docker run --rm -it \
   ansible-playbook -i inventory.yaml playbook.yaml
 
 
+# dry run, it test runs the playbook but without making any
+# actual changes
+docker run --rm -it \
+  -v $(pwd):/ansible \
+  my-ansible-core \
+  ansible-playbook -i inventory.yaml playbook.yaml --check
+
+
 # run playbook with different variables, variable doesn't even
 # need to be defined in the playbook, it can be simply used but
 # then must be passed in the command
