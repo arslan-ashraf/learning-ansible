@@ -192,6 +192,6 @@
         name: "{{ item }}"
         state: present
       loop:
-        - zip
         - unzip
-        - curl
+        # - zip
+        # - curl
