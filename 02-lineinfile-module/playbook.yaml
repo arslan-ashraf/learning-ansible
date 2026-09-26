@@ -11,13 +11,25 @@
     - name: Replace a line if it already exists
       ansible.builtin.lineinfile:
         path: sample.conf
-        regexp: 'ssl_enabled.*'  # .* matches everything after ssl_enabled
-        line: 'ssl_enabled true'
+        regexp: "ssl_enabled.*"  # .* matches everything after ssl_enabled
+        line: "ssl_enabled true"
 
     - name: Add a line at the beginning of the file
       ansible.builtin.lineinfile:
         path: sample.conf
-        line: "# sample network config file"
+        line: "# sample network config file\n"
         insertbefore: BOF    # BOF: beginning of file
 
-    - name: 
+    - name: Read file content using 'cat' command
+      ansible.builtin.command: cat sample.conf
+      register: sample_conf_file_content
+
+    - name: Print sample_conf_file_content
+      ansible.builtin.debug:
+        msg: "{{ sample_conf_file_content.stdout }}"
+
+    - name: Remove a file if it already exists
+      ansible.builtin.lineinfile:
+        path: sample.conf
+        regexp: ".*meaningless.*"
+        state: absent
