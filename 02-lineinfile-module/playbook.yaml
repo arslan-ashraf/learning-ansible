@@ -13,3 +13,5 @@
         path: sample.conf
         regexp: 'ssl_enabled.*'  # .* matches everything after ssl_enabled
         line: 'ssl_enabled true'
+
+    - name: Add a line at the beginning of the file
