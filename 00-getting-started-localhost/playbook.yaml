@@ -135,5 +135,5 @@
 
     - name: Did Python script task make changes
       ansible.builtin.debug:
-        msg: "The Python script did not make any changes to the host(s)."
-      when: python_script_raw_output.changed == false
+        msg: " Python script 'changed' status"
+      when: python_script_raw_output.changed == true
