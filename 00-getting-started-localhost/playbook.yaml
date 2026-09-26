@@ -114,14 +114,24 @@
       ansible.builtin.set_fact:
         favorite_produce: "{{ python_script_raw_output.stdout | from_json }}"
 
+      # 'register' variable common fields: 
+      # stdout and stderr — output from command or shell tasks
+      # rc — return code
+      # changed — whether the task made a change
+      # failed
+
     - name: Print JSON
       ansible.builtin.debug:
         var: favorite_produce
 
+    - name: Print Python script Return Code
+      ansible.builtin.debug:
+        var: python_script_raw_output.rc
 
-  handlers:
-    - name: Execute Python script
-      ansible.builtin.script: 
-        executable: python3 
-        cmd: example.py
-      register: python_script_raw_output
+
+  # handlers:
+  #   - name: Execute Python script
+  #     ansible.builtin.script: 
+  #       executable: python3 
+  #       cmd: example.py
+  #     register: python_script_raw_output
