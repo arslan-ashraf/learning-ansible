@@ -49,6 +49,16 @@
     #   when: ansible_facts['os_family'] == 'Debian'
 
 
+- name: Gather only a subset of facts
+  hosts: target_hosts
+  gather_facts: true
+  gather_subset:
+    - network                     # only gather network facts
+  tasks:
+    - name: Print network facts
+      ansible.builtin.debug:
+        var: ansible_facts
+
 - name: Print Debug Messages and Variables
   hosts: target_hosts             # must match in the inventory
   vars:
@@ -80,9 +90,7 @@
 
 - name: Environment Varialbes
   hosts: target_hosts             # must match in the inventory
-  gather_facts: true
-  gather_subset:
-    - network                     # only gather network facts
+  gather_facts: false
   tags: ["play_level_tag"]
   environment:
     ENV_VAR: development
