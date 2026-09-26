@@ -137,3 +137,13 @@
       ansible.builtin.debug:
         msg: " Python script 'changed' status is true"
       when: python_script_raw_output.changed == true
+
+
+- name: Play - Loops
+  hosts: target_hosts
+  gather_facts: false
+  tasks:
+    - name: Print elements of a loop
+      ansible.builtin.debug: 
+        var: "{{ item }}"
+      with_items: ["item_1", "item_2", "item_3"]
