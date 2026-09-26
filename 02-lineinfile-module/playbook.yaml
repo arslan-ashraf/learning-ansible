@@ -7,3 +7,9 @@
         line: 'timeout 60'
         insertafter: '^port'
         state: present
+
+    - name: Replace a line if it already exists
+      ansible.builtin.lineinfile:
+        path: sample.conf
+        regexp: 'ssl_enabled.*'  # .* matches everything after ssl_enabled
+        line: 'ssl_enabled true'
