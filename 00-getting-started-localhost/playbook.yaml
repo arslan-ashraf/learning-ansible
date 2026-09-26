@@ -61,7 +61,7 @@
 
 - name: Play - Environment Varialbes
   hosts: target_hosts             # must match in the inventory
-  # gather_facts: false           # default is true
+  gather_facts: false             # default is true
   environment:
     ENV_VAR: development
   tasks:
@@ -98,6 +98,7 @@
 
 - name: Play - Execute Python Script & Run Handlers
   hosts: target_hosts
+  gather_facts: false
   tasks:
     - name: Execute Python script & Run Handlers
       ansible.builtin.script: 
