@@ -135,5 +135,5 @@
 
     - name: Did Python script task make changes
       ansible.builtin.debug:
-        msg: " Python script 'changed' status"
+        msg: " Python script 'changed' status is true"
       when: python_script_raw_output.changed == true
