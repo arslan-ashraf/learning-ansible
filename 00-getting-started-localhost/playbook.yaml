@@ -99,12 +99,12 @@
 - name: Play - Execute Python Script & Run Handlers
   hosts: target_hosts
   tasks:
-    - name: Execute Python script & Run Handler
+    - name: Execute Python script & Run Handlers
       ansible.builtin.script: 
         executable: python3 
         cmd: example.py
       register: python_script_raw_output
-      notify:
+      notify:         # list of handler names
         - Python script execution Return (Status) Code
         - Did Python script task make changes
 
