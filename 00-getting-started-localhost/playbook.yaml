@@ -146,14 +146,14 @@
   tasks:
     - name: Get the list of files
       ansible.builtin.find:
-        paths: /tmp
-        patterns: "*.log"
+        paths: /usr/bin
+        patterns: "*grep*"
       register: found_files
 
     - name: Print each file path
       ansible.builtin.debug:
         msg: "{{ item.path }}"
-      loop: "{{ found_files.files }}"
+      loop: "{{ found_files.files | default([]) }}"
 
     # - name: Print elements of a loop
     #   ansible.builtin.debug: 
