@@ -186,3 +186,12 @@
       ansible.builtin.debug:
         msg: "{{ item.path }}"
       loop: "{{ found_files.files | default([]) }}"
+
+    - name: Install multiple packages
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - zip
+        - unzip
+        - curl
