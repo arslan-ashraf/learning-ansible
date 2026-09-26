@@ -164,6 +164,17 @@
           - banana
           - orange
 
+    - name: Print each array element
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ my_array }}"
+      vars:
+        my_array:
+          - blueberries
+          - orange
+          - mango
+
+
 
     # - name: Print elements of a loop
     #   ansible.builtin.debug: 
