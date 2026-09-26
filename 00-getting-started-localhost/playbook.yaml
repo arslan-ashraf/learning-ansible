@@ -62,6 +62,7 @@
 - name: Environment Varialbes
   hosts: target_hosts             # must match in the inventory
   gather_facts: false             # default is true
+  tags: ["play_level_tag"]
   environment:
     ENV_VAR: development
   tasks:

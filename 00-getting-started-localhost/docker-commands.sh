@@ -52,8 +52,17 @@ docker run --rm -it \
   -v $(pwd):/ansible \
   my-ansible-core \
   ansible-playbook \
-  --tag fruit_tag,example_tag \
+  --tag fruit_tag,example_tag \  # --skip-tags <tag_name>
   -i inventory.yaml playbook.yaml
+
+
+# list all tags
+docker run --rm -it \
+  -v $(pwd):/ansible \
+  my-ansible-core \
+  ansible-playbook \
+  -i inventory.yaml playbook.yaml \
+  --list-tags
 
 
 # running with SSH
