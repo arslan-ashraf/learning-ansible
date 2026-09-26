@@ -15,3 +15,9 @@
         line: 'ssl_enabled true'
 
     - name: Add a line at the beginning of the file
+      ansible.builtin.lineinfile:
+        path: sample.conf
+        line: "# sample network config file"
+        insertbefore: BOF    # BOF: beginning of file
+
+    - name: 
