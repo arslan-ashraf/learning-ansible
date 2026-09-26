@@ -56,7 +56,7 @@
     - name: Print vegetable variable
       ansible.builtin.debug:
         msg: "favorite vegetable: {{ vegetable }}"
-      tags: vegetable_tag
+      tags: ["vegetable_tag", "example_tag"]
 
 
 - name: Environment Varialbes

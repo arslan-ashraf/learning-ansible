@@ -52,7 +52,7 @@ docker run --rm -it \
   -v $(pwd):/ansible \
   my-ansible-core \
   ansible-playbook \
-  --tag fruit_tag \
+  --tag fruit_tag,example_tag \
   -i inventory.yaml playbook.yaml
 
 
