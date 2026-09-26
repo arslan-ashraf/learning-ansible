@@ -76,7 +76,7 @@
         ENV_VAR: production
 
 
-- name: Fourth play
+- name: Play - Shell Command & Date and Time
   hosts: target_hosts             # must match in the inventory
   tasks:
     - name: Check whoami
@@ -96,7 +96,7 @@
         var: ansible_date_time.iso8601   # prints like Y-M-D-H-M-S
 
 
-- name: Fifth play
+- name: Play - Execute Python Scripte
   hosts: target_hosts
   tasks:
     - name: Execute Python script
