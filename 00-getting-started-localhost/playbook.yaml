@@ -143,17 +143,10 @@
 - name: Play - Loops
   hosts: target_hosts
   gather_facts: false
+  vars:
+    fruits: ["cara cara", "raspberry", "kiwi"]
+    vegetables: ["sweet potato", "kale", "spinach"]
   tasks:
-    - name: Get the list of files
-      ansible.builtin.find:
-        paths: /usr/bin
-        patterns: "*grep*"
-      register: found_files
-
-    - name: Print each file path
-      ansible.builtin.debug:
-        msg: "{{ item.path }}"
-      loop: "{{ found_files.files | default([]) }}"
 
     - name: Print the entire array
       ansible.builtin.debug:
@@ -174,9 +167,13 @@
           - orange
           - mango
 
+    - name: Get the list of files
+      ansible.builtin.find:
+        paths: /usr/bin
+        patterns: "*grep*"
+      register: found_files
 
-
-    # - name: Print elements of a loop
-    #   ansible.builtin.debug: 
-    #     var: "{{ item }}"
-    #   with_items: ["item_1", "item_2", "item_3"]
+    - name: Print each file path
+      ansible.builtin.debug:
+        msg: "{{ item.path }}"
+      loop: "{{ found_files.files | default([]) }}"
