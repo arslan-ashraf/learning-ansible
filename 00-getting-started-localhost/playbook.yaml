@@ -49,15 +49,21 @@
     #   when: ansible_facts['os_family'] == 'Debian'
 
 
-- name: Gather only a subset of facts
+- name: Gather only network facts
   hosts: target_hosts
-  gather_facts: true
-  gather_subset:
-    - network                     # only gather network facts
+  gather_facts: false
   tasks:
-    - name: Print network facts
-      ansible.builtin.debug:
-        var: ansible_facts
+    - name: Gather network facts without default minimum facts
+      ansible.builtin.setup:
+        gather_subset:
+          - "!all"
+          - "!min"
+          - network
+
+    # - name: Print network facts
+    #   ansible.builtin.debug:
+    #     var: ansible_facts
+
 
 - name: Print Debug Messages and Variables
   hosts: target_hosts             # must match in the inventory
