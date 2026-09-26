@@ -144,7 +144,18 @@
   hosts: target_hosts
   gather_facts: false
   tasks:
-    - name: Print elements of a loop
-      ansible.builtin.debug: 
-        var: "{{ item }}"
-      with_items: ["item_1", "item_2", "item_3"]
+    - name: Get the list of files
+      ansible.builtin.find:
+        paths: /tmp
+        patterns: "*.log"
+      register: found_files
+
+    - name: Print each file path
+      ansible.builtin.debug:
+        msg: "{{ item.path }}"
+      loop: "{{ found_files.files }}"
+
+    # - name: Print elements of a loop
+    #   ansible.builtin.debug: 
+    #     var: "{{ item }}"
+    #   with_items: ["item_1", "item_2", "item_3"]
