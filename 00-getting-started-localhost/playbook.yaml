@@ -99,11 +99,14 @@
 - name: Play - Execute Python Script & Run Handlers
   hosts: target_hosts
   tasks:
-    - name: Execute Python script
+    - name: Execute Python script & Run Handler
       ansible.builtin.script: 
         executable: python3 
         cmd: example.py
       register: python_script_raw_output
+      notify:
+        - Python script execution Return (Status) Code
+        - Did Python script task make changes
 
     - name: Print raw output of Python script
       ansible.builtin.debug:
@@ -124,14 +127,13 @@
       ansible.builtin.debug:
         var: favorite_produce
 
+
+  handlers:
     - name: Python script execution Return (Status) Code
       ansible.builtin.debug:
         var: python_script_raw_output.rc # 0 is succes code
 
-
-  handlers:
-    - name: Execute Python script
-      ansible.builtin.script: 
-        executable: python3 
-        cmd: example.py
-      register: python_script_raw_output
+    - name: Did Python script task make changes
+      ansible.builtin.debug:
+        msg: "The Python script did not make any changes to the host(s)."
+      when: python_script_raw_output.changed == 'false'
