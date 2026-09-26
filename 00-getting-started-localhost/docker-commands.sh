@@ -19,6 +19,15 @@ docker run --rm -it \
   ansible-playbook -i inventory.yaml playbook.yaml --check
 
 
+# shows what changes the playbook will make without actually
+# making them, useful when used with modules like copy, template,
+# lineinfile, etc.
+docker run --rm -it \
+  -v $(pwd):/ansible \
+  my-ansible-core \
+  ansible-playbook -i inventory.yaml playbook.yaml --diff
+
+
 # run playbook with different variables, variable doesn't even
 # need to be defined in the playbook, it can be simply used but
 # then must be passed in the command
