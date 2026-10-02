@@ -244,15 +244,24 @@
         var: ansible_facts.services
 
 
-- name: Block and Rescue
+- name: Block, Rescue, and Always blocks
   hosts: target_hosts
   tasks:
     block:
+      become: true
+      ignore_errors: true
       - name: List current directory
         ansible.builtin.command: ls -lart
 
       - name: Fail intentionally
         ansible.builtin.command: ls /non-existent-directory
           
-
     rescue:
+      - name: Perform cleanup after task failure
+        ansible.builtin.debug:
+          msg: "Oops, something went wrong, cleaning up ..."
+
+    always:
+      - name: This task always runs, even in case of failure elsewhere
+        ansible.builtin.debug:
+          msg: "Always runs, even in case of failure elsewhere."
