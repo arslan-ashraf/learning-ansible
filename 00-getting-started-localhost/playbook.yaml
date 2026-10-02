@@ -270,6 +270,20 @@
 - name: Import dynamic tasks from separate file into this playbook
   hosts: target_hosts
   tasks:
-    - ansible.builtin.include_tasks:
+    - ansible.builtin.include_tasks: 
       file: example_dynamic_task.yaml
 
+# entire playbooks can only be imported statically with 
+# ansible.builtin.import_playbook
+
+# example: import a full playbook 
+# NOTE: THIS PLAY SHOULD BE AT THE TOP
+# - name: Import the webserver deployment playbook
+#   ansible.builtin.import_playbook: webservers.yml
+
+# example: import a full playbook 
+# NOTE: THIS PLAY SHOULD BE AT THE TOP
+# - name: Import database playbook with variables
+#   ansible.builtin.import_playbook: databases.yml
+#   vars:
+#     db_port: 5432
