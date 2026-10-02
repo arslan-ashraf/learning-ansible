@@ -1,3 +1,7 @@
-- name: This dyanmic task is in a separate file
-          ansible.builtin.debug:
-            msg: "This dynamic task is in a separate file"
+- name: This dynamic task is in a separate file
+  ansible.builtin.debug:
+    msg: "First task from a separate file."
+
+- name: Another dynamic task is in a separate file
+  ansible.builtin.debug:
+    msg: "Second task from a separate file."

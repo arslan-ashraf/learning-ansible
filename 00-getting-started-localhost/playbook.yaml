@@ -267,7 +267,9 @@
             msg: "Always runs, even in case of failure elsewhere."
 
 
-- name: Import dynamic task from separate file into this playbook
+- name: Import dynamic tasks from separate file into this playbook
   hosts: target_hosts
   tasks:
-    - ansible.builtin.include_tasks: example_dynamic_task.yaml 
+    - ansible.builtin.include_tasks:
+      file: example_dynamic_task.yaml
+
