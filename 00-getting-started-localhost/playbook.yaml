@@ -270,4 +270,4 @@
 - name: Import dynamic task from separate file into this playbook
   hosts: target_hosts
   tasks:
-    - ansible.builtin.include_tasks: 
+    - ansible.builtin.include_tasks: example_dynamic_task.yaml 
