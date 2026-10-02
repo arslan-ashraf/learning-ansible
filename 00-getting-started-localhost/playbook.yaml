@@ -265,3 +265,9 @@
         - name: This task always runs, even in case of failure elsewhere
           ansible.builtin.debug:
             msg: "Always runs, even in case of failure elsewhere."
+
+
+- name: Import dynamic task from separate file into this playbook
+  hosts: target_hosts
+  tasks:
+    - ansible.builtin.include_tasks: 
