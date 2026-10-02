@@ -275,14 +275,23 @@
 
 # entire playbooks can only be imported statically with 
 # ansible.builtin.import_playbook
+# NOTE: THESE PLAYS SHOULD BE AT THE TOP
 
-# example: import a full playbook 
-# NOTE: THIS PLAY SHOULD BE AT THE TOP
+# examples: import a full playbook 
+##############################################################
+############## THIS IS THE PRIMARY PLAYBOOK ##################
+##############################################################
+# - name: Run initial configuration play
+#   hosts: all
+#   tasks:
+#     - name: Print a message
+#       ansible.builtin.debug:
+#         msg: "Starting primary deployment..."
+
+
 # - name: Import the webserver deployment playbook
 #   ansible.builtin.import_playbook: webservers.yml
 
-# example: import a full playbook 
-# NOTE: THIS PLAY SHOULD BE AT THE TOP
 # - name: Import database playbook with variables
 #   ansible.builtin.import_playbook: databases.yml
 #   vars:
