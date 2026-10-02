@@ -228,9 +228,10 @@
         name: "{{ item }}"
         state: present
       loop:
-        - unzip
+        # - unzip
         # - zip
         # - curl
+      ignore_errors: yes
 
 - name: Service Facts
   hosts: target_hosts
