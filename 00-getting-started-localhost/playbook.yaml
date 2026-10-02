@@ -243,3 +243,16 @@
       ansible.builtin.debug:
         var: ansible_facts.services
 
+
+- name: Block and Rescue
+  hosts: target_hosts
+  tasks:
+    block:
+      - name: List current directory
+        ansible.builtin.command: ls -lart
+
+      - name: Fail intentionally
+        ansible.builtin.command: ls /non-existent-directory
+          
+
+    rescue:
